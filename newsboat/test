@@ -1,0 +1,2 @@
+newsboat -r -x print-unread
+newsboat -r -x print-unread

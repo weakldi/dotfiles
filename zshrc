@@ -60,7 +60,14 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  gitfast 
+  git-extras 
+  colored-man 
+  dircycle 
+  zsh-autosuggestions 
+  zsh-completions 
+  zsh-syntax-highlighting 
+  zsh-history-substring-search
 )
 
 
@@ -263,6 +270,7 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
   login)
     	RPROMPT="%{$fg[red]%} %(?..[%?])" 
     	alias x='startx ~/.xinitrc'      # Type name of desired desktop after x, xinitrc is configured for it
+        neofetch="1"
     ;;
   urxvt)
     	RPROMPT='$(git_prompt_string)'
@@ -270,9 +278,11 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
     	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     	ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
     	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+        neofetch="1"
     ;;
   konsole|qterminal)
     	RPROMPT='$(git_prompt_string)'
+    	neofetch="1"
     ;;   
   'tmux: server')
   	if $(ps -p$PPID| grep -q -e konsole -e qterminal); then
@@ -305,14 +315,11 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
 		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
   		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+  		neofetch="1"
   	fi
     ;;
 esac
-# Set kde themes in other WM
-export DESKTOP_SESSION=kde 
-#load alias
-source /home/kristian/dotfiles/alias.sh
-source /home/kristian/dotfiles/speedLimit.sh
+
 
 
 
@@ -321,4 +328,4 @@ source $ZSH/oh-my-zsh.sh
 PROMPT="%(!.%{$fg[red]%}[%n@%m %1~]%{$reset_color%}# .%{$fg[green]%}[%n@%m %1~]%{$reset_color%}$ "
 # Maia prompt
 PROMPT="%B%{$fg[cyan]%}%(4~|%-1~/.../%2~|%~)%u%b >%{$fg[cyan]%}>%B%(?.%{$fg[cyan]%}.%{$fg[red]%})>%{$reset_color%}%b " # Print some system information when the shell is first started
-newsboat -r -x print-unread
+source ~/dotfiles/startShell.sh
